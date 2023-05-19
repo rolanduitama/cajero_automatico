@@ -1,0 +1,91 @@
+  
+  cantidadBilletes10mil = 0
+  cantidadBilletes20mil = 0
+  cantidadBilletes50mil = 0
+  cantidadBilletes100mil = 0	
+
+  INICIO
+  
+  cajero_numero:01234
+	
+  mostrar (bienvenido a nuestro cajero)
+  mostrar("ingrese numero de cuenta")
+  escribir (numeroCuenta)
+  leer (numeroCuenta)
+
+  mostrar ("ingrese numero de nid")
+  escribir ("ingrese nid")
+  leer (nid cliente)
+
+  obtener saldo de la cuenta desde la tabla de cuentas
+  saldoCuenta <- obtenerSaldoCuenta(numeroCuenta)
+  mostrar ("saldo de la cuenta")
+  mostrar("ingrese monto a retirar , recuerde que solo se puede múltiplos de 10.000 hasta máximo 600.000):")
+  escribir("montoRetiro")
+
+  leer (numero de cajero)
+  si (numero de cajero ok)
+ 
+  si montoRetiro % 10000 != 0 Entonces
+  escribir ("El monto a retirar no es un múltiplo de 10.000")
+  fin si
+
+  si montoRetiro > 2400000 
+  Escribir ("El monto de retiro excede el límite diario")
+  Fin Si
+  
+  si montoRetiro > 600000 
+  entonces
+  escribir ("El monto a retirar excede el límite por transacción")
+  fin si
+ 
+ 
+  si HaySuficientesBilletes(montoRetiro) Entonces
+            
+  actualizar el saldo de la cuenta y la cantidad de billetes en el cajero
+  saldoCuenta <- saldoCuenta - montoRetiro
+
+  obtener fecha y hora actual
+  fechaActual <- ObtenerFechaActual()
+  horaActual <- ObtenerHoraActual()
+
+  Calcular cantidad de billetes necesarios para el retiro
+
+  cantidadBilletes100mil <- montoRetiro / 100000
+  montoRestante <- montoRetiro % 100000
+  cantidadBilletes50mil <- montoRestante / 50000
+  montoRestante <- montoRestante % 50000
+  cantidadBilletes20mil <- montoRestante / 20000
+  montoRestante <- montoRestante % 20000
+  cantidadBilletes10mil <- montoRestante / 10000
+
+
+  mostrar  ("retiro exitoso")
+  Escribir ("Usted ha retirado $", montoRetiro, " el día ", fechaActual, " a las ", horaActual)
+
+  actualizarSaldoCuenta(numeroCuenta, saldoCuenta)
+  actualizarCantidadBilletes(montoRetiro)
+
+  si no
+  mostrar (error por falta de billetes en el cajero)
+  escribir ("No hay suficientes billetes en el cajero para realizar el retiro")
+  fin si
+
+   si no
+   Mostrar mensaje de error por exceder el límite de retiro por transacción
+   Escribir ("El monto de retiro excede el límite permitido por transacción")
+   fin si 
+
+    si no
+    mostrar ( error por saldo insuficiente en la cuenta)
+    escribir "La cuenta no tiene saldo suficiente para realizar el retiro"
+    fin si
+
+    si no
+    mostrar ( error por cuenta inexistente)
+    escribir "La cuenta ingresada no existe"
+    fin si
+
+   
+
+Fin
